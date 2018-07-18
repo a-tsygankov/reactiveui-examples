@@ -27,9 +27,13 @@ namespace Sample_WPF_1
 
             ViewModel = new ViewModelClass();
 
-            this.Bind(ViewModel, vm => vm.FirstName, v => v.txtFirstName.Text);
-            this.Bind(ViewModel, vm => vm.LastName, v => v.txtLastName.Text);
-            this.Bind(ViewModel, vm => vm.FullName, v => v.txtFullName.Text);
+            this.WhenActivated(d =>
+            {
+                d(this.Bind(ViewModel, vm => vm.FirstName, v => v.txtFirstName.Text));
+                d(this.Bind(ViewModel, vm => vm.LastName, v => v.txtLastName.Text));
+                d(this.Bind(ViewModel, vm => vm.FullName, v => v.txtFullName.Text));
+
+            });
 
         }
 
