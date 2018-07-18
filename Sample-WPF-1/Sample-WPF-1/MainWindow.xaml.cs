@@ -31,7 +31,7 @@ namespace Sample_WPF_1
             {
                 d(this.Bind(ViewModel, vm => vm.FirstName, v => v.txtFirstName.Text));
                 d(this.Bind(ViewModel, vm => vm.LastName, v => v.txtLastName.Text));
-                d(this.Bind(ViewModel, vm => vm.FullName, v => v.txtFullName.Text));
+                d(this.OneWayBind(ViewModel, vm => vm.FullName, v => v.txtFullName.Text));
 
             });
 

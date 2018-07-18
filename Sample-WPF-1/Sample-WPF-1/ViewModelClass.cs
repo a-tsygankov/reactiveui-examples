@@ -39,9 +39,10 @@ namespace Sample_WPF_1
             LastName = "Snow";
 
             _fullName = this.WhenAnyValue(x => x.FirstName, y => y.LastName)
-                //.Throttle(TimeSpan.FromMilliseconds(1000))
+                .Throttle(TimeSpan.FromMilliseconds(1000))
+                .ObserveOn(RxApp.MainThreadScheduler)
                 .Select(x => $"{x.Item1} {x.Item2}")
-                .ToProperty(this, x => x.FullName);
+                .ToProperty(this, x => x.FullName, "");
 
         }
     }
