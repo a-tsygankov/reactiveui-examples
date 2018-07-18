@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using System;
+using ReactiveUI;
 
 namespace Sample_WPF_1
 {
@@ -14,8 +15,6 @@ namespace Sample_WPF_1
             set
             {
                 this.RaiseAndSetIfChanged(ref _firstName, value);
-                UpdateFullName();
-
             }
         }
 
@@ -25,8 +24,6 @@ namespace Sample_WPF_1
             set
             {
                 this.RaiseAndSetIfChanged(ref _lastName, value);
-                UpdateFullName();
-
             }
         }
 
@@ -49,6 +46,10 @@ namespace Sample_WPF_1
         {
             FirstName = "Jon";
             LastName = "Snow";
+
+            this.WhenAnyValue(x => x.FirstName, y => y.LastName)
+                .Subscribe(_ => UpdateFullName());
+
         }
     }
 }
