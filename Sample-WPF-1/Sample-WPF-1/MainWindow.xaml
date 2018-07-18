@@ -38,7 +38,8 @@
                    x:Name="txtFullName"/>
         
         <Button Grid.Row="3"
-                Grid.Column="0">Add</Button>
+                Grid.Column="0"
+                x:Name="btnAdd">Add</Button>
         <ListView Grid.Column="3"
                   Grid.Row="0"
                   Grid.RowSpan="4"

@@ -34,6 +34,7 @@ namespace Sample_WPF_1
 
         
         public ReactiveList<String> NameList = new ReactiveList<string>();
+        public ReactiveCommand AddName { get; }
 
         public ViewModelClass()
         {
@@ -44,8 +45,13 @@ namespace Sample_WPF_1
             _fullName = this.WhenAnyValue(x => x.FirstName, y => y.LastName)
                 .Throttle(TimeSpan.FromMilliseconds(1000))
                 .ObserveOn(RxApp.MainThreadScheduler)
-                .Select(x => $"{x.Item1} {x.Item2}")
+                .Select(x => $"{x.Item1} {x.Item2}".Trim())
                 .ToProperty(this, x => x.FullName, "");
+
+            AddName = ReactiveCommand.Create(
+                () => NameList.Add(FullName),
+                this.WhenAnyValue(x => x.FullName)
+                    .Select(x => !string.IsNullOrWhiteSpace(x)));
 
         }
     }
