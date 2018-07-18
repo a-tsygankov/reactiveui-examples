@@ -47,8 +47,8 @@ namespace Sample_WPF_1
 
         public ViewModelClass()
         {
-            FirstName = "Jon";
-            LastName = "Snow";
+            //FirstName = "Jon";
+            //LastName = "Snow";
         }
     }
 }
