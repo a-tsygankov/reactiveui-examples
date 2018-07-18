@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing.Text;
+using System.Reactive;
 using System.Reactive.Linq;
 using ReactiveUI;
 
@@ -30,13 +31,15 @@ namespace Sample_WPF_1
 
         public string FullName => _fullName.Value;
         private readonly ObservableAsPropertyHelper<string> _fullName;
-        
 
+        
+        public ReactiveList<String> NameList = new ReactiveList<string>();
 
         public ViewModelClass()
         {
-            FirstName = "Jon";
-            LastName = "Snow";
+            NameList.Add("John Malkovich");
+            NameList.Add("Darth Vader");
+            NameList.Add("Tigra");
 
             _fullName = this.WhenAnyValue(x => x.FirstName, y => y.LastName)
                 .Throttle(TimeSpan.FromMilliseconds(1000))
