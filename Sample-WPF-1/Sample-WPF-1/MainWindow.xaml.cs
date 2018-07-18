@@ -24,7 +24,7 @@ namespace Sample_WPF_1
         {
             InitializeComponent();
 
-            DataContext = new 
+            //DataContext = new ViewModel(); 
 
         }
     }

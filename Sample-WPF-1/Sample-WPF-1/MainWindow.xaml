@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:Sample_WPF_1"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Window.DataContext>
+        <local:ViewModel/>
+    </Window.DataContext>
+    <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
@@ -21,15 +24,20 @@
                Grid.Column="0">First Name</Label>
         <TextBox Grid.Row="0"
                  Grid.Column="1"
-                 x:Name="txtFirstName"/>
+                 x:Name="txtFirstName"
+                 Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <Label Grid.Row="1"
-               Grid.Column="0">First Name</Label>
+               Grid.Column="0">Last Name</Label>
         <TextBox Grid.Row="1"
                  Grid.Column="1"
-                 x:Name="txtLastName"/>
+                 x:Name="txtLastName"
+                 Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Grid.Row="2"
+               Grid.Column="0">Full Name</Label>
         <TextBlock Grid.Row="2"
-                   Grid.Column="0"
+                   Grid.Column="1"
                    Grid.ColumnSpan="2"
-                   x:Name="txtFullName"/>
+                   x:Name="txtFullName"
+                   Text="{Binding FullName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </Window>
