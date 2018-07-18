@@ -12,8 +12,10 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -34,5 +36,13 @@
                    Grid.Column="1"
                    Grid.ColumnSpan="2"
                    x:Name="txtFullName"/>
+        
+        <Button Grid.Row="3"
+                Grid.Column="0">Add</Button>
+        <ListView Grid.Column="3"
+                  Grid.Row="0"
+                  Grid.RowSpan="4"
+                  x:Name="listNames"/>
+
         </Grid>
 </Window>
