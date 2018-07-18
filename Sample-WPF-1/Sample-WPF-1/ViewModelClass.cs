@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Drawing.Text;
+using System.Reactive.Linq;
 using ReactiveUI;
 
 namespace Sample_WPF_1
 {
     public class ViewModelClass : ReactiveObject
     {
-        private string _fullName;
         private string _lastName;
         private string _firstName;
 
@@ -27,19 +28,9 @@ namespace Sample_WPF_1
             }
         }
 
-        public string FullName
-        {
-            get => _fullName;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _fullName, value);
-            }
-        }
-
-        private void UpdateFullName()
-        {
-            FullName = $"{FirstName} {LastName}";
-        }
+        public string FullName => _fullName.Value;
+        private readonly ObservableAsPropertyHelper<string> _fullName;
+        
 
 
         public ViewModelClass()
@@ -47,8 +38,10 @@ namespace Sample_WPF_1
             FirstName = "Jon";
             LastName = "Snow";
 
-            this.WhenAnyValue(x => x.FirstName, y => y.LastName)
-                .Subscribe(_ => UpdateFullName());
+            _fullName = this.WhenAnyValue(x => x.FirstName, y => y.LastName)
+                //.Throttle(TimeSpan.FromMilliseconds(1000))
+                .Select(x => $"{x.Item1} {x.Item2}")
+                .ToProperty(this, x => x.FullName);
 
         }
     }
