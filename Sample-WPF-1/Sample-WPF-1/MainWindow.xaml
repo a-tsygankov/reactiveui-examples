@@ -42,7 +42,8 @@
                 Grid.Column="0"
                 x:Name="btnAdd">Add</Button>
         <Button Grid.Row="3"
-                Grid.Column="1">Async Add</Button>
+                Grid.Column="1"
+                x:Name="btnAddAAsync">Async Add</Button>
         <ListView Grid.Column="3"
                   Grid.Row="0"
                   Grid.RowSpan="4"
@@ -62,7 +63,8 @@
 
         <Button Grid.Row="4"
                 Grid.Column="2"
-                Width="100">Cancel</Button>
+                Width="100"
+                x:Name="btnCancel">Cancel</Button>
         
 
     </Grid>

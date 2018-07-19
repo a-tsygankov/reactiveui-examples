@@ -33,7 +33,10 @@ namespace Sample_WPF_1
                 d(this.Bind(ViewModel, vm => vm.LastName, v => v.txtLastName.Text));
                 d(this.OneWayBind(ViewModel, vm => vm.FullName, v => v.txtFullName.Text));
                 d(this.OneWayBind(ViewModel, vm => vm.NameList, v => v.listNames.ItemsSource));
+
                 d(this.BindCommand(ViewModel, vm => vm.AddName, v => v.btnAdd));
+                d(this.BindCommand(ViewModel, vm => vm.AddNameAsync, v => v.btnAddAAsync));
+                d(this.BindCommand(ViewModel, vm => vm.AddNameAsyncCancel, v => v.btnCancel));
 
             });
 

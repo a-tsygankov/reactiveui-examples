@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing.Text;
+using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using ReactiveUI;
 
 namespace Sample_WPF_1
@@ -35,6 +39,8 @@ namespace Sample_WPF_1
         
         public ReactiveList<String> NameList = new ReactiveList<string>();
         public ReactiveCommand AddName { get; }
+        public ReactiveCommand <Unit, Unit> AddNameAsync { get; }
+        public ReactiveCommand<Unit, Unit> AddNameAsyncCancel { get; }
 
         public ViewModelClass()
         {
@@ -48,11 +54,29 @@ namespace Sample_WPF_1
                 .Select(x => $"{x.Item1} {x.Item2}".Trim())
                 .ToProperty(this, x => x.FullName, "");
 
+            var canAdd = this.WhenAnyValue(x => x.FullName)
+                .Select(x => !string.IsNullOrWhiteSpace(x));
+
             AddName = ReactiveCommand.Create(
                 () => NameList.Add(FullName),
-                this.WhenAnyValue(x => x.FullName)
-                    .Select(x => !string.IsNullOrWhiteSpace(x)));
+                canAdd);
 
+
+            AddNameAsync = ReactiveCommand.CreateFromObservable(
+                //this.WhenAnyValue(vm => vm.FullName).Select(q => !string.IsNullOrEmpty(q)),
+                () => Observable.StartAsync(ct => AddAsync(FullName, ct)).TakeUntil(AddNameAsyncCancel),
+                canAdd);
+
+            AddNameAsyncCancel = ReactiveCommand.Create(() =>  {}, AddNameAsync.IsExecuting);
+
+
+        }
+
+        private async Task AddAsync(string name, CancellationToken token)
+        {
+            await Task.Delay(1500, token);
+            
+            NameList.Add(name);
         }
     }
 }
