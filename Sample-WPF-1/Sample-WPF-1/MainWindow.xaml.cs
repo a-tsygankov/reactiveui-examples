@@ -1,18 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ReactiveUI;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using ReactiveUI;
 
 namespace Sample_WPF_1
 {
@@ -37,6 +24,9 @@ namespace Sample_WPF_1
                 d(this.BindCommand(ViewModel, vm => vm.AddName, v => v.btnAdd));
                 d(this.BindCommand(ViewModel, vm => vm.AddNameAsync, v => v.btnAddAAsync));
                 d(this.BindCommand(ViewModel, vm => vm.AddNameAsyncCancel, v => v.btnCancel));
+
+                d(this.WhenAnyObservable(x => x.ViewModel.AddNameAsync.IsExecuting)
+                    .BindTo(commandProgressBar, pb => pb.IsIndeterminate));
 
             });
 
