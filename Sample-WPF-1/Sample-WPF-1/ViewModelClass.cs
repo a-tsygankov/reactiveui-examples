@@ -35,16 +35,16 @@ namespace Sample_WPF_1
         private readonly ObservableAsPropertyHelper<string> _fullName;
 
         
-        public ReactiveList<String> NameList = new ReactiveList<string>();
+        public ReactiveList<Name> NameList = new ReactiveList<Name>();
         public ReactiveCommand AddName { get; }
         public ReactiveCommand <Unit, Unit> AddNameAsync { get; }
         public ReactiveCommand<Unit, Unit> AddNameAsyncCancel { get; }
 
         public ViewModelClass()
         {
-            NameList.Add("John Malkovich");
-            NameList.Add("Darth Vader");
-            NameList.Add("Tigra");
+            NameList.Add(Name.CreateName("John Malkovich"));
+            NameList.Add(Name.CreateName("Darth Vader"));
+            NameList.Add(Name.CreateName("Tigra"));
 
             _fullName = this.WhenAnyValue(x => x.FirstName, y => y.LastName)
                 .Throttle(TimeSpan.FromMilliseconds(1000))
@@ -56,7 +56,7 @@ namespace Sample_WPF_1
                 .Select(x => !string.IsNullOrWhiteSpace(x));
 
             AddName = ReactiveCommand.Create(
-                () => NameList.Add(FullName),
+                () => NameList.Add(Name.CreateName(FullName)),
                 canAdd);
 
 
@@ -71,7 +71,7 @@ namespace Sample_WPF_1
         {
             await Task.Delay(3000, token);
             
-            NameList.Add(name);
+            NameList.Add(Name.CreateName(name));
         }
     }
 }
