@@ -12,6 +12,10 @@ namespace Sample_WPF_1
         public PersonNameView()
         {
             InitializeComponent();
+            this.WhenActivated(d =>
+            {
+                d(this.Bind(ViewModel, vm => vm.Text, v => v.txtName.Text));
+            });
         }
 
         #region ViewModel property boilerplate
