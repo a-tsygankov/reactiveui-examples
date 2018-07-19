@@ -1,5 +1,6 @@
 ﻿using ReactiveUI;
 using System.Windows;
+using Splat;
 
 namespace Sample_WPF_1
 {
@@ -10,6 +11,9 @@ namespace Sample_WPF_1
     {
         public MainWindow()
         {
+            Locator.CurrentMutable.Register(() => new PetNameView(), typeof(IViewFor<PetName>));
+            Locator.CurrentMutable.Register(() => new PersonNameView(), typeof(IViewFor<PersonName>));
+
             InitializeComponent();
 
             ViewModel = new ViewModelClass();
@@ -32,15 +36,13 @@ namespace Sample_WPF_1
 
         }
 
+        public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register("ViewModel", typeof(ViewModelClass), typeof(MainWindow));
+
         object IViewFor.ViewModel
         {
             get { return ViewModel; }
             set { ViewModel = (ViewModelClass)value; }
         }
-
-        //public static readonly DependencyProperty ViewModelProperty = 
-        //    DependencyProperty.Register("ViewModel", typeof(ViewModelClass), typeof(MainWindow), new PropertyMetadata(default(ViewModelClass)));
-        public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register("ViewModel", typeof(ViewModelClass), typeof(MainWindow));
 
         public ViewModelClass ViewModel
         {
