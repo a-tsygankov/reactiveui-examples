@@ -108,6 +108,7 @@
     <Compile Include="PetNameView.xaml.cs">
       <DependentUpon>PetNameView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="simple_viewmodel_tests.cs" />
     <Compile Include="ViewModelClass.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
