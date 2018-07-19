@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing.Text;
+﻿using ReactiveUI;
+using System;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using ReactiveUI;
 
 namespace Sample_WPF_1
 {
@@ -63,18 +61,15 @@ namespace Sample_WPF_1
 
 
             AddNameAsync = ReactiveCommand.CreateFromObservable(
-                //this.WhenAnyValue(vm => vm.FullName).Select(q => !string.IsNullOrEmpty(q)),
                 () => Observable.StartAsync(ct => AddAsync(FullName, ct)).TakeUntil(AddNameAsyncCancel),
                 canAdd);
 
             AddNameAsyncCancel = ReactiveCommand.Create(() =>  {}, AddNameAsync.IsExecuting);
-
-
         }
 
         private async Task AddAsync(string name, CancellationToken token)
         {
-            await Task.Delay(1500, token);
+            await Task.Delay(3000, token);
             
             NameList.Add(name);
         }
