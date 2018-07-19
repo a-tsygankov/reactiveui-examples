@@ -86,6 +86,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Name.cs" />
+    <Compile Include="PersonNameView.xaml.cs">
+      <DependentUpon>PersonNameView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PetNameView.xaml.cs">
+      <DependentUpon>PetNameView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModelClass.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -99,6 +105,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PersonNameView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PetNameView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -126,6 +140,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="person-512.png" />
+    <Resource Include="pet-512.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
