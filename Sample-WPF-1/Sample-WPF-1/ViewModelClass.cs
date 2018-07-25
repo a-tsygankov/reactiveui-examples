@@ -64,14 +64,26 @@ namespace Sample_WPF_1
                 () => Observable.StartAsync(ct => AddAsync(FullName, ct)).TakeUntil(AddNameAsyncCancel),
                 canAdd);
 
+            var exceptions = AddNameAsync.ThrownExceptions.Subscribe(ex =>
+            {
+                Console.WriteLine(ex);
+            });
+
             AddNameAsyncCancel = ReactiveCommand.Create(() =>  {}, AddNameAsync.IsExecuting);
         }
 
         private async Task AddAsync(string name, CancellationToken token)
         {
-            await Task.Delay(3000, token);
-            
-            NameList.Add(Name.CreateName(name));
+            try
+            {
+                await Task.Delay(3000, token);
+
+                NameList.Add(Name.CreateName(name));
+            }
+            catch (TaskCanceledException e)
+            {
+                Console.WriteLine(@"Reactive command is cancelled.");
+            }
         }
     }
 }
