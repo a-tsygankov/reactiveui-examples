@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace Sample_WPF_1
 {
-    public class ViewModel : INotifyPropertyChanged
+    public class ViewModelClass : INotifyPropertyChanged
     {
         private string _fullName;
         private string _lastName;
@@ -53,7 +53,7 @@ namespace Sample_WPF_1
             FullName = $"{FirstName} {LastName}";
         }
 
-        public ViewModel()
+        public ViewModelClass()
         {
             FirstName = "Jon";
             LastName = "Snow";
